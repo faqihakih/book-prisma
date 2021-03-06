@@ -4,8 +4,8 @@ const authMiddleware = require('../helpers/auth_middleware')
 
 BookRoutes.get("/", BoooksControllers.getBooks)
 BookRoutes.get("/:id", BoooksControllers.getBooksById)
-BookRoutes.post("/", BoooksControllers.postBooks)
-BookRoutes.put("/:id", BoooksControllers.updateBooks)
-BookRoutes.delete("/:id", BoooksControllers.deleteBooks)
+BookRoutes.post("/",authMiddleware.checkLogin, BoooksControllers.postBooks)
+BookRoutes.put("/:id",authMiddleware.checkLogin, BoooksControllers.updateBooks)
+BookRoutes.delete("/:id",authMiddleware.checkLogin, BoooksControllers.deleteBooks)
 
 module.exports = BookRoutes

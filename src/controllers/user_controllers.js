@@ -62,7 +62,7 @@ module.exports = {
             });
     },
     updateUserData: (req, res) => {
-        const { user_id } = req.params;
+        const { id } = req.params;
         const { body } = req;
         const newData = {
             ...body,
@@ -72,7 +72,7 @@ module.exports = {
         prisma.user_detail
             .update({
                 where : {
-                    id : Number(user_id)
+                    id : Number(id)
                 },
                 data: newData
             })
