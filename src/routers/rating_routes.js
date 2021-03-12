@@ -4,5 +4,9 @@ const authMiddleware = require('../helpers/auth_middleware')
 
 ratingRoutes.get("/", ratingControllers.getRating);
 ratingRoutes.get("/:id", ratingControllers.getRatingById);
-ratingRoutes.post("/",authMiddleware.checkLogin, ratingControllers.postRating);
+ratingRoutes.post("/",
+
+//authMiddleware.checkLogin,
+
+ratingControllers.postRating);
 module.exports = ratingRoutes;
