@@ -52,7 +52,7 @@ module.exports = {
         const newData = {
             ...body,
             id_category: Number(body.id_category),
-            id_rating: Number(body.id_rating),
+            // id_rating: Number(body.id_rating),
             id_user: Number(body.id_user)
         }
         prisma.books
