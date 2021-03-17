@@ -45,4 +45,4 @@ untuk documentasi silahkan klik link di bawah
 
 #### LICENSE
 
-Distributed under the MIT License. See [LICENSE](https://github.com/faqihakih/BooksCollections/blob/main/LICENSE) for more information.
+Distributed under the MIT License. See [LICENSE](https://github.com/faqihakih/book-prisma/blob/main/LICENSE) for more information.
