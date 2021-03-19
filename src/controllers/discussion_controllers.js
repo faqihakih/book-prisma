@@ -26,11 +26,12 @@ module.exports = {
             })
     },
     postDiscussion : (req, res) => {
+        const decodeIdUser = req.decodedToken.id
         const {body} = req;
         const newBody = {
             ...body,
             book_id : Number(body.book_id),
-            user_id : Number(body.user_id)
+            user_id : decodeIdUser
         }
         prisma.discuss
             .create({

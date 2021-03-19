@@ -4,7 +4,12 @@ const resp = require('../helpers/respons')
 
 module.exports = {
     getBooks: (req, res) => {
+        const page = Number(req.body.pagination)
+        const bookPage = 5;
+        const offset = (page - 1) * bookPage
         prisma.books.findMany({
+            take: bookPage,
+            skip : offset,
             include: {
                 category: {
                     select: {
@@ -48,12 +53,14 @@ module.exports = {
             })
     },
     postBooks: (req, res) => {
+        const decodeIdUser = req.decodedToken.id
+        console.log(decodeIdUser);
         const { body } = req;
         const newData = {
             ...body,
             id_category: Number(body.id_category),
-            // id_rating: Number(body.id_rating),
-            id_user: Number(body.id_user)
+            id_user: decodeIdUser,
+            cover : req.file.path
         }
         prisma.books
             .create({
@@ -62,39 +69,43 @@ module.exports = {
             .then((data) => {
                 resp.success(res,"success", 200, data)
             })
-            .catch((error) => {
+            .catch((err) => {
                 resp.error(res, 500, err)
             });
     },
     updateBooks: (req, res) => {
+        const decodeIdUser = req.decodedToken.id
         const { id } = req.params;
         const { body } = req;
         const newData = {
             ...body,
             id_category: Number(body.id_category),
-            id_rating: Number(body.id_rating),
-            id_user: Number(body.id_user)
+            cover : req.file.path,
+            id_user: decodeIdUser
         }
         prisma.books
-            .update({
+            .updateMany({
                 where: {
-                    id: parseInt(id)
+                    id: parseInt(id),
+                    id_user: decodeIdUser
                 },
                 data: newData
             })
             .then((data) => {
                 resp.success(res,"success", 200, data)
             })
-            .catch((error) => {
+            .catch((err) => {
                 resp.error(res, 500, err)
             });
     },
     deleteBooks: (req, res) => {
+        const decodeIdUser = req.decodedToken.id
         const { id } = req.params;
         prisma.books
-            .delete({
+            .deleteMany({
                 where: {
-                    id: parseInt(id)
+                    id: parseInt(id),
+                    id_user: decodeIdUser
                 }
             })
             .then((data) => {

@@ -58,6 +58,7 @@ module.exports = {
                 }else{
                     const payload = {
                         // data yang dibawa ke token
+                        id : data.id,
                         name : data.name,
                         username : data.username,
                         email : data.email

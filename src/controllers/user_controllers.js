@@ -43,12 +43,14 @@ module.exports = {
             })
     },
     updateUser: (req, res) => {
+        const decodeIdUser = req.decodedToken.id
         const { body } = req;
         const newData = {
             ...body,
             ttl: new Date(body.ttl),
             usia: Number(body.usia),
-            user_id : Number(body.user_id)
+            user_id : decodeIdUser,
+            avatar : req.file.path
         }
         prisma.user_detail
             .create({
@@ -62,17 +64,18 @@ module.exports = {
             });
     },
     updateUserData: (req, res) => {
-        const { id } = req.params;
+        const decodeIdUser = req.decodedToken.id
         const { body } = req;
         const newData = {
             ...body,
             ttl: new Date(body.ttl),
             usia: Number(body.usia),
+            avatar : req.file.avatar
         }
         prisma.user_detail
-            .update({
+            .updateMany({
                 where : {
-                    id : Number(id)
+                    user_id: decodeIdUser
                 },
                 data: newData
             })
@@ -84,12 +87,13 @@ module.exports = {
             });
     },
     deleteUser: (req, res) => {
+        const decodeIdUser = req.decodedToken.id
         const { id } = req.params;
         // console.log(id);
         prisma.users
             .delete({
                 where: {
-                    user_id: parseInt(id)
+                    user_id: decodeIdUser
                 },
             })
             .then((data) => {

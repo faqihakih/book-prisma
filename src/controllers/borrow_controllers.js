@@ -4,9 +4,12 @@ const resp = require('../helpers/respons')
 
 module.exports = {
     postBorrow : (req, res) => {
+        const decodeNameUser = req.decodedToken.name
+        console.log(decodeNameUser);
         const {body} = req;
         const newBody = {
             ...body,
+            borrower_name : decodeNameUser,
             book_id : Number(body.book_id),
             user_id : Number(body.user_id),
             start_date : new Date(body.start_date),

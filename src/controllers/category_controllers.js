@@ -32,26 +32,34 @@ module.exports = {
     },
     postCategory: (req, res) => {
         const { body } = req;
+        const newData = {
+            ...body,
+            icon : req.file.path
+        }
         prisma.category
-            .create({
-                data: body
-            })
-            .then((data) => {
-                resp.success(res,"success", 200, data)
-            })
-            .catch((error) => {
-                resp.error(res, 500, err)
-            });
+        .create({
+            data: newData
+        })
+        .then((data) => {
+            resp.success(res,"success", 200, data)
+        })
+        .catch((error) => {
+            resp.error(res, 500, err)
+        });
     },
     updateCategory: (req, res) => {
         const { id } = req.params;
         const { body } = req;
+        const newData = {
+            ...body,
+            icon : req.file.path
+        }
         prisma.category
             .update({
                 where: {
                     id: parseInt(id)
                 },
-                data: body
+                data: newData
             })
             .then((data) => {
                 resp.success(res,"success", 200, data)
