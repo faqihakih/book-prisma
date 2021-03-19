@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     checkLogin : (req, res, next) => {
-        const bearerToken = req.header('x-access-token').split(' ');
+        const bearerToken = req.header('x-access-token')
         // console.log(req.header('x-access-token'));
         // console.log(bearerToken);
 
