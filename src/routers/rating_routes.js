@@ -6,7 +6,7 @@ ratingRoutes.get("/", ratingControllers.getRating);
 ratingRoutes.get("/:id", ratingControllers.getRatingById);
 ratingRoutes.post("/",
 
-//authMiddleware.checkLogin,
+authMiddleware.checkLogin,
 
 ratingControllers.postRating);
 module.exports = ratingRoutes;
